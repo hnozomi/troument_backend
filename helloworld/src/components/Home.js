@@ -12,6 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css'
 import AxiosBase from 'axios';
+// import Axios from 'axios';
 
 // ****************************************************************///
 //  初期画面
@@ -62,10 +63,10 @@ class Home extends React.Component {
     // ****************************************************************///
 
     getTodolists() {
-        // const login_user = User.LoggedUser()
-        // this.setState({
-        //     login_user: login_user
-        // })
+        const login_user = User.LoggedUser()
+        this.setState({
+            login_user: login_user
+        })
         // const url = constUrl + '/api/display'
         Axios.get('/api/display')
             .then(response => {
@@ -99,6 +100,8 @@ class Home extends React.Component {
             .catch(err => {
                 console.error(new Error(err))
             })
+            var time = this.createTime()
+            console.log(time, '返り値')
     }
 
     // ****************************************************************///
@@ -116,7 +119,7 @@ class Home extends React.Component {
         let worry_id = shortid.generate()
 
         const list = {
-            username: this.state.login_user,
+            username: this.state.userinfo.user_name,
             title: title,
             tag: tags,
             worry: savedData,
@@ -319,13 +322,15 @@ class Home extends React.Component {
     // ****************************************************************///
 
     createTime(time) {
+
         if (time) {
             var now_time = new Date(time)
+            var now_time = now_time.toLocaleString()
         } else {
             var now_time = new Date()
         }
-        var time = now_time.toLocaleString()
-        return time
+        
+        return now_time
     }
 
 

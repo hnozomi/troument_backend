@@ -2,6 +2,7 @@ import React from 'react';
 import Display from './Display';
 import User from './User';
 import AxiosBase from 'axios';
+// import Axios from 'axios';
 import { CircularProgress } from '@material-ui/core';
 
 import ReactCrop from 'react-image-crop';
@@ -280,11 +281,13 @@ class Mypage extends React.Component {
     const formData = new FormData();
     formData.append('Files', this.state.croppedImageUrl)
     formData.append('username', this.state.username)
-
+    
     // const url = constUrl + '/api/files'
+    console.log(formData, 'formDAte')
     Axios.post('/api/files',
     formData,
     ).then(response => {
+      console.log(response, 'RESPONSE')
       this.setState((state => {
         return { thumbnail: this.state.croppedImageUrl }
       }), () => this.handleReload()
@@ -310,7 +313,7 @@ class Mypage extends React.Component {
             src: reader.result,
             picOpen: true,
           }
-        }), () => console.log(this.state.src, 'src')
+        })
         )
       );
       reader.readAsDataURL(e.target.files[0]);
@@ -339,7 +342,6 @@ class Mypage extends React.Component {
         crop,
         'newFile.jpeg'
       );
-      console.log(croppedImageUrl, 'croppedImageUrl')
       this.setState({ croppedImageUrl });
     }
   }
@@ -366,7 +368,6 @@ class Mypage extends React.Component {
 
     return new Promise((resolve, reject) => {
       canvas.toBlob(blob => {
-        console.log(blob, 'BLOB')
         if (!blob) {
           console.error('Canvas is empty');
           return;
@@ -409,7 +410,6 @@ class Mypage extends React.Component {
 
   render() {
     const { crop, croppedImageUrl, src} = this.state;
-    const { classes } = this.props;
     return (
       <div className="profile-wrappers">
         <div className="profile-wrapper">

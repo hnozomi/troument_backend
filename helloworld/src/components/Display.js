@@ -1,7 +1,6 @@
 import React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import DetailsIcon from '@material-ui/icons/Details';
 import { withRouter } from "react-router-dom";
 import Avatar from 'react-avatar';
 
@@ -98,15 +97,12 @@ class Display extends React.Component {
                     <div className="content-button-wrapper">
                       {this.state.isGood
                         ? <button className="content-button" onClick={this.handleGoodChange}>ありがとう
-                                    <ThumbUpIcon className="content-button-icon" style={{ fontSize: 18 }} />
+                        <ThumbUpIcon className="content-button-icon" style={{ fontSize: 18 }} />
                         </button>
                         : <button className="content-button" onClick={this.handleGoodChange}>ありがとう
                         <ThumbUpAltOutlinedIcon className="content-button-icon" style={{ fontSize: 18 }} />
                         </button>
                       }
-                      < button className="content-button" onClick={this.props.ClickDetailOpen}>悩みの詳細
-                  <DetailsIcon className="content-button-icon" style={{ fontSize: 18 }} />
-                      </button>
                     </div>
                   }
                   {this.props.login_user === this.props.username &&
