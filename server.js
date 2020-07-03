@@ -14,8 +14,8 @@ import { timeStamp } from 'console'
 
 const app = express()
 const port = 3001
-const dbUrl = 'mongodb://18.181.201.30/troument'
-// const dbUrl = 'mongodb://localhost/crudtest'
+// const dbUrl = 'mongodb://18.181.201.30/troument'
+const dbUrl = 'mongodb://localhost/crudtest'
 const ObjectId = require('mongodb').ObjectID;
 
 
@@ -352,7 +352,7 @@ async function getList(ID) {
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID, 
   secretAccessKey: process.env.AWS_S3_SECRET_KEY,
-  Bucket: troument
+  Bucket: 'troument'
 });
 
 const upload = multer({ 
@@ -369,17 +369,20 @@ const upload = multer({
   })
 });
 
-app.post('/api/files', upload.fields([{ name: 'Files' }]), (req, res) => {
-  console.log(req, 'FILE')
-  const { username, formData } = req.body
-  User.updateOne({ 'user_name': username }, { $set: { 'thumbnail': req.files.Files[0].filename } },
-    // User.updateOne({ 'user_name': username }, { $set: { 'thumbnail': req.body.Files } },
-    { upsert: true, multi: true },
-    (err) => {
-      res.status(200).send(req.files)
-    })
+app.post('/api/files', upload.array('photos', 3), function(req, res, next) {
+  res.send('Successfully uploaded ' + req.files.length + ' files!')
+})
 
-});
+// app.post('/api/files', upload.fields([{ name: 'Files' }]), (req, res) => {
+//   console.log(req, 'FILE')
+//   const { username, formData } = req.body
+//   User.updateOne({ 'user_name': username }, { $set: { 'thumbnail': req.files.Files[0].filename } },
+//     { upsert: true, multi: true },
+//     (err) => {
+//       res.status(200).send(req.files)
+//     })
+
+// });
 
 
 app.listen(port, err => { // http://localhost:3001にサーバーがたつ
