@@ -14,8 +14,9 @@ import { timeStamp } from 'console'
 
 const app = express()
 const port = 3001
-// const dbUrl = 'mongodb://18.181.201.30/troument'
-const dbUrl = 'mongodb://localhost/crudtest'
+const dbUrl = 'mongodb://18.181.201.30/troument'
+// const dbUrl = 'mongodb://localhost/troument'
+// const dbUrl = 'mongodb://localhost/crudtest'
 const ObjectId = require('mongodb').ObjectID;
 
 
